@@ -1,87 +1,106 @@
-# FF7 Remake Speedrun Races - OBS Scenes
+# FF7 Remake Speedrun Races - Race Control
 
-This repository contains the OBS scenes for the FF7 Remake Speedrun Community Races. These are provided to the community for us in speedrun events and races.
+This repository contains the Race Control NodeCG bundle for managing speedrun races for Final Fantasy VII Remake.
 
-There are separate scene collections based on number of runners as well as a scene collection for the runners to use to make restreaming easier. This contains no images or complex settings, so can just be imported directly into OBS from the Scenes menu.
+It supports up to 5 runners, with an additional host and will handle timing for each runner, switching between/focusing on particular runners or switching audio, results and stream titles, etc.
 
-- [3 Runners.json](3 Runners.json) - Layout for 3 runners
-- [4 Runners.json](4 Runners.json) - Layout for 4 runners
-- [5 Runners.json](5 Runners.json) - Layout for 5 runners
-- [Runner Layout.json](Runner Layout.json) - A layout to be used by the runners on their own streams to make it easier.
+An example of it being used for a 4-person race [is here](https://www.youtube.com/watch?v=qXMxPy1n-ts).
 
-## Installation
+## Requirements
 
-All layouts can be imported from the Scene Collections menu in OBS. This will import all the scenes, however it won't correctly use the images, background video and music.
+- NodeCG
+- OBS
+- OBS Websocket Plugin
 
-### Race Layouts
+## Setup
 
-There are images that will need to have their filename/location set in OBS after import. The resources are all in the [resources](resources) directory.
+### Installation
 
-- `img: Logo` should be `logo.png`
-- `img: In-Game` should be `ingame.jpg`
+Follow the NodeCG install instructions and also install the OBS Websocket plugin. This is required for Race Control to be able to manage OBS and switch between scenes, mute sources, etc.
 
-There is a background video on the `source: Background` scene. This should be updated to be `background.webm`.
+Extract the ff7remake bundle into the `bundles` directory of NodeCG, so that the structure is `bundles\77fremake`.
 
-On the `scene: Holding`, `scene: Be Right Back` and `scene: Ending` scenes, there are music files. These have not been distributed with the scene collection due to copyright, feel free to use your own versions of these or other music.
+### Building Javascript/CSS
 
-All the main graphics overlays are generated from a custom [NodeCG application](https://github.com/ff7r-speedruns/race-control). Setup instructions are in that package. The race control application will also control timers and switch between some OBS scenes.
+You can rebuild the Javascript/CSS after modifications by using `npm run build`. This will run webpack and update the built assets.
 
-### Runner Layout
+### Configuration
 
-This is a layout the racers can use on their own streams. There is no extra installation steps required as it does not have any images.
+Once it is running, you can go to the dashboard by visiting `http://localhost:9090` in your browser. The first thing to do is to connect it to OBS using the OBS Connection panel. Once that's done, you will be able to select scenes and sources.
+
+![image-20210222201505602](docs/image-20210222201505602.png)
+
+Next you'll want to set some basic titles and such for the graphics. This is done in this panel.
+
+![image-20210222202026263](docs/image-20210222202026263.png)
+
+The purpose of each bit of text is pretty obvious.
+
+The next step is to set up your runners.
+
+![image-20210222201550055](docs/image-20210222201550055.png)
+
+Enter the names of the runners and click 'Update Names'. This will set the names on the race view. We'll run through the rest of the options later.
+
+Now you can set up your interview titles. There are spaces for people's Twitch channels and optionally pronouns.
+
+![image-20210222201650261](docs/image-20210222201650261.png)
+
+When done, click 'Update' and it will be saved. There are 6 lines here so that you can have an optional host for interviews.
+
+Finally you need to tell Race Control which sources to use for audio for the runners, and which scenes relate to which runner for when you focus on them.
+
+![image-20210222201840362](docs/image-20210222201840362.png)
+
+The scenes should be straight-forward enough, the audio sources should be their browser sources for their twitch stream as this will control game audio.
+
+Once all this is done, you're good to go!
 
 ## Usage
 
-### Race Layouts
+### Stream Countdown
 
-The scenes are split into 2 sections, scenes and sources. The layouts make heavy use of scenes as sources inside other scenes.
+![image-20210222202206213](docs/image-20210222202206213.png)
 
-The scenes are prefixed with `scene: ` and are what you should switch between. There are scenes for Holding/Waiting Start, Interviews, Interviews with a Host, Be Right Back and Ending scenes. These all heavily rely on the graphics output from Race Control.
+It can take some time to configure everything, so to set the countdown timer on the Holding scene, use the Countdown timer panel. You can put in a time in Minutes:Seconds, eg. 10:00 and it will start a countdown. When it reaches zero, no text will be displayed.
 
-The Race and Player scenes are intended to be switched between by Race Control, you should only need to switch to `scene: Race` at the start of the race.
+![image-20210222202231314](docs/image-20210222202231314.png)
 
-The main effort in setting up a race is in configuring the Player and Camera sources. There are a few approaches you can take with this:
+Once you're ready to begin the race, you can cut to the interview scenes or straight to the Race scene. 
 
-1. Runners use the standard `Runner Layout.json` layout. This gives a 640 x 480 camera and 1280x720 game input.
-2. Runners use their own normal layouts. Camera and game sizes can vary, but this is more flexible and easier for casual races.
-3. Runners stream full game output and audio to their own stream, and camera/talking is brought in via Discord calls or OBS Ninja. This was used by ESA Winter 2021, it has benefits and drawbacks.
+### Timing
 
-In all cases, you will want to add a new Browser source to the relevant `source: Player X` scene, this should be 1920x1080 and the URL should be `https://player.twitch.tv/?channel=CHANNELNAME&parent=twitch.tv`. When it's brought in, interact with the browser and set the quality to the highest bitrate instead of auto.
+![image-20210222202349724](docs/image-20210222202349724.png)
 
-You can now crop this source (use alt + the drag handles; or the Transformation settings) to reduce it to just the camera. Once that's done, scale it up to the full-size of the scene.
+This is the main race timer. When you click Start, it will start timing, when you click Stop, it will Stop timing (but continue running in the background - in-case you accidentally stopped it). Reset will reset the timer and stop it.
 
-Now on the relevant `source: Player X Cam` add a browser source, select the source you previously added from the list. Now crop this one to the runner's camera. The camera is intended to be a 4:3 ratio, the pink section on the right will not be shown, but their camera should fill the rest of the scene. If they don't have a camera, just put their Twitch channel logo or anything else!
+Next to each runner in the Runners panel, you'll see their own time and a Stop button. When they finish the race, hit the Stop button next to their time, and it'll stop their timer, while the others continue.
 
-The interview sources are set to the player cameras, the only special one is Player 6, if you are the host, this should be your webcam, or it can be the host's twitch stream/camera.
+![image-20210222202536122](docs/image-20210222202536122.png)
 
-#### Audio
+If you incorrectly stopped their timer, you can resume it using the Resume button. It will return to the same time as the main race timer.
 
-You have two options for audio. You can have all runners send their game audio, mic audio and discord audio through to their stream, and ensure they have the volume balanced; or you can use OBS Ninja or Discord for microphone/voice chat; and have only game audio on the streams.
+![image-20210222202557211](docs/image-20210222202557211.png)
 
-If you choose to do audio through Discord/OBS Ninja, then you will want to put a delay on it in Advanced Audio Properties that is about the same as the stream delay.
+Stopping a runner's timer will put their finish time over the centre of their game window, it will also be used on the results page for showing where people finished.
 
-It's more complicated to do separate audio, but does give you more control over voice and in-game audio.
+### Audio
 
-### Runner Layout
+![image-20210222202751464](docs/image-20210222202751464.png)
 
-The runner layout is made up of one scene for the actual layout you will stream and another 3 scenes to be used as sources.
+The audio column on the runners panel allows you to choose which audio goes through to the stream. This is done by muting other runner sources and unmuting the one you've chosen. If you choose to focus video on another player, it will switch to their audio automatically. The active audio is shown on-stream with a speaker icon.
 
-- `[race] Stream` - This is the scene you need to Stream during the race. It has your camera, game and own-content in the right places. You don't need to modify it.
-- `[race] Camera` - This is where you should add your camera. It should fully overlap the blue area and the resolution will be 640x480.
-- `[race] Game` - Your game capture should be on this scene, it should be the full size of the scene.
-- `Your Content` - Put anything you like here - messages for people to watch the multi-stream, or splits, or anything you like!
+### Focus
 
-Once you've set up the layout, you can check it's OK on the `[race] Stream` scene.
+![image-20210222202955806](docs/image-20210222202955806.png)
 
-Depending on how the organiser of the run wants to do audio, you will either need to add Discord, your Microphone and In-Game audio to OBS, and set volume levels appropriately; or just have your game audio.
+This allows you to switch from the race view to instead focus on an individual runner. This could be if they're doing something that you want to show to the audience, such as a key boss fight or skip.
 
-## Tips and Advice
+Clicking on the Focus icon will switch to their player view and clicking on it again returns to the race view.
 
-Some tips and advice for broadcasters and runners:
+## Support
 
-- Stream at 6mbps 1920x1080 with either 30 or 60 FPS.
-- If you're going to use OBS Ninja/Discord for camera/audio, remember you'll need a delay!
-- If using your own layout, please don't crop the game or scale it to a different ratio.
+If you need support with this package, please message Mintopia#0042 on Discord or find me on the [FF7 Remake Speedrun Discord](https://discord.gg/WH2ktdJ).
 
 ## License
 
