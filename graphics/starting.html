@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            color: #ffffff;
+            font-family: Montserrat, sans-serif;
+            font-size: 24pt;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.32);
+        }
+
+        #title {
+            position: absolute;
+            top: 450px;
+            left: 220px;
+            width: 900px;
+            text-align: center;
+            font-size: 48pt;
+        }
+
+        #countdown {
+            position: absolute;
+            top: 600px;
+            left: 600px;
+            width: 900px;
+            font-size: 64pt;
+        }
+    </style>
+</head>
+<body>
+    <div id="title"></div>
+    <div id="countdown"></div>
+</body>
+
+<script>
+    const titleReplicant = nodecg.Replicant('title');
+    titleReplicant.on('change', (newValue, oldValue) => {
+        title.innerText = newValue;
+    });
+
+    const countdownReplicant = nodecg.Replicant('countdown');
+
+    NodeCG.waitForReplicants(countdownReplicant).then(() => {
+        setInterval(() => {
+            let now = Date.now();
+            if (countdownReplicant.value == null || countdownReplicant.value < now) {
+                countdown.innerText = '';
+
+            } else {
+                let elapsed = countdownReplicant.value - now;
+                let diff = new Date(elapsed);
+                countdown.innerText = '' + diff.getMinutes() + ':' + ("0" + diff.getSeconds()).slice(-2); 
+            }
+        }, 100)
+    });
+</script>
+</html>

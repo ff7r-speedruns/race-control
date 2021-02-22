@@ -1,0 +1,100 @@
+
+body {
+    color: #ffffff;
+    font-family: Montserrat, sans-serif;
+    font-size: 24pt;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.32);
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+}
+
+#title {
+    position: absolute;
+    top: 450px;
+    left: 220px;
+    width: 900px;
+    text-align: center;
+    font-size: 48pt;
+}
+
+#ending {
+    position: absolute;
+    top: 650px;
+    left: 220px;
+    width: 900px;
+    text-align: center;
+    font-size: 40pt;
+}
+
+#runners {
+    position: absolute;
+    right: 80px;
+    top: 250px;
+    width: fit-content;
+    height: fit-content;
+}
+
+#runners[data-runners='4'] {
+    top: 110px;
+}
+
+#runners[data-runners='5'] {
+    top: 80px;
+}
+
+.runner {
+    margin-bottom: 50px;
+}
+
+.runner .name {
+    width: fit-content;
+    padding: 4px 12px;
+    font-size: 32pt;
+}
+
+.timer {
+    background-color: #ffffff;
+    padding: 8px 10px 8px 20px;
+    color: #000000;
+    font-size: 60pt;
+    width: 100%;
+    text-align: left;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+}
+
+#runners[data-runners='5'] .runner {
+    margin-bottom: 30px;
+}
+
+#runners[data-runners='5'] .timer {
+    font-size: 48pt;
+}
+
+#runners[data-runners='5'] .name {
+    font-size: 32pt;
+}
+
+div[data-index='0'] .name {
+    color: black;
+    background-color: gold;
+}
+
+div[data-index='1'] .name {
+    background-color: #aaa9ad;
+}
+
+div[data-index='2'] .name {
+    background-color: #b08d57;
+}
+
+div[data-index='3'] .name {
+    background-color: #222222;
+}
+
+div[data-index='4'] .name {
+    background-color: #222222;
+}

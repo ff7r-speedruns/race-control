@@ -1,0 +1,142 @@
+{
+  "name": "ff7remake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "nodecg": {
+    "compatibleRange": ">=0.9",
+    "dashboardPanels": [
+      {
+        "name": "setup",
+        "title": "Setup",
+        "width": 8,
+        "file": "setup.html"
+      },
+      {
+        "name": "countdown",
+        "title": "Countdown Timer",
+        "width": 2,
+        "file": "countdown.html"
+      },
+      {
+        "name": "runners",
+        "title": "Runners",
+        "width": 8,
+        "file": "runners.html"
+      },
+      {
+        "name": "timer",
+        "title": "Race Timer",
+        "width": 2,
+        "file": "timer.html"
+      },
+      {
+        "name": "interview",
+        "title": "Interview",
+        "width": 8,
+        "file": "interview.html"
+      },
+      {
+        "name": "obs",
+        "title": "OBS Config",
+        "width": 7,
+        "file": "obsconfig.html"
+      },
+      {
+        "name": "obsconnection",
+        "title": "OBS Connection",
+        "width": 3,
+        "file": "obs.html"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "interview-3.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "interview-4.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "interview-5.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "interview-6.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "focus-3.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "focus-4.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "focus-5.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "race-3.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "race-4.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "race-5.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "starting.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "brb.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "ending.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ]
+  },
+  "dependencies": {
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/neon-animation": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-dropdown-menu": "^3.1.0",
+    "@polymer/paper-icon-button": "^3.0.2",
+    "@polymer/paper-input": "^3.2.1",
+    "@polymer/paper-listbox": "^3.0.1",
+    "bower-npm-resolver": "^0.11.0",
+    "nodecg-utility-obs": "^6.1.7",
+    "web-animations-js": "^2.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0"
+  }
+}

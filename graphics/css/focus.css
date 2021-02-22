@@ -1,0 +1,105 @@
+
+body {
+    font-weight: bold;
+    font-family: Montserrat;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.32);
+    height: 1080px;
+    width: 1920px;
+    overflow: hidden;
+}
+
+#racer2 {
+    top: 8px;
+}
+
+#racer3 {
+    top: 386px;
+}
+
+#webcam {
+    border: 1px solid #30aebd;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    width: 444px;
+    height: 333px;
+}
+
+.racer {
+    border: 1px solid #30aebd;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    position: absolute;
+}
+
+.primary {
+    width: 1280px;
+    height: 720px;
+    top: 8px;
+    left: 8px;
+}
+
+.secondary {
+    width: 608px;
+    height: 342px;
+    right: 8px;
+}
+
+.nickname {
+    font-size: 14pt;
+    color: #ffffff;
+    position: absolute;
+}
+
+.primary .nickname {
+    padding: 2px 8px 2px 50px;
+    right: 0;
+    bottom: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(270deg, rgba(0,0,0,0.6866947462578781) 0%, rgba(0,0,0,0.4822129535407913) 64%, rgba(0,0,0,0) 100%); 
+}
+
+.secondary .nickname {
+    padding: 2px 50px 2px 8px;
+    left: 0;
+    bottom: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0.6866947462578781) 0%, rgba(0,0,0,0.4822129535407913) 64%, rgba(0,0,0,0) 100%); 
+}
+
+.racer .time {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 48pt;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px;
+    text-shadow: none;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(3, 1, 1, 0.61);
+}
+
+#title {
+    color: #ffffff;
+    position: absolute;
+    font-size: 28pt;
+    text-align: center;
+    left: 475px;
+    width: 960px;
+    top: 790px;
+}
+
+#timer {
+    position: absolute;
+    color: #ffffff;
+    font-size: 48pt;
+    left: 820px;
+    top: 920px;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/race.css" />
+        <style>
+            .racer {
+                width: 944px;
+                height: 531px;
+            }
+
+            .racer[data-index='0'] {
+                left: 9px;
+                top: 4px;
+            }
+
+            .racer[data-index='1'] {
+                left: 963px;
+                top: 4px;
+            }
+
+            .racer[data-index='2'] {
+                left: 9px;
+                top: 541px;
+            }
+
+            #title {
+                left: 963px;
+                width: 944px;
+                top: 800px;
+            }
+
+            #timer {
+                left: 1300px;
+                top: 890px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="racer" data-index="0">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="racer" data-index="1">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="racer" data-index="2">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div id="title"></div>
+    <div id="timer"></div>
+</body>
+
+<script src="js/race.js"></script>
+</html>

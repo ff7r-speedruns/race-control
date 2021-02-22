@@ -1,0 +1,21 @@
+{
+  "name": "ff7remake",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jessica Smith <jess@mintopia.net>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nodecg/nodecg",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nodecg-widget-obs": "npm:nodecg-widget-obs#^6.1.7"
+  }
+}

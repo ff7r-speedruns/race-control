@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/race.css" />
+        <style>
+            .racer {
+                width: 848px;
+                height: 477px;
+            }
+
+            .racer[data-index='0'] {
+                left: 73px;
+                top: 14px;
+            }
+
+            .racer[data-index='1'] {
+                left: 997px;
+                top: 14px;
+            }
+
+            .racer[data-index='2'] {
+                left: 73px;
+                top: 507px;
+            }
+
+            .racer[data-index='3'] {
+                left: 997px;
+                top: 507px;
+            }
+
+            #title {
+                left:280px;
+                width: 1360px;
+                bottom: 30px;
+            }
+
+            #timer {
+                left: 1600px;
+                bottom: 10px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="racer" data-index="0">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="racer" data-index="1">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="racer" data-index="2">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="racer" data-index="3">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+            <span class="audio" data-type="audio">
+                <span class="material-icons">
+                volume_up
+                </span>
+            </span>
+        </div>
+    </div>
+    <div id="title"></div>
+    <div id="timer"></div>
+</body>
+
+<script src="js/race.js"></script>
+</html>

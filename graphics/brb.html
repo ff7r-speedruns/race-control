@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            color: #ffffff;
+            font-family: Montserrat, sans-serif;
+            font-size: 24pt;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.32);
+        }
+
+        #title {
+            position: absolute;
+            top: 450px;
+            left: 220px;
+            width: 900px;
+            text-align: center;
+            font-size: 48pt;
+        }
+
+        #brb {
+            position: absolute;
+            top: 650px;
+            left: 220px;
+            width: 900px;
+            text-align: center;
+            font-size: 40pt;
+        }
+    </style>
+</head>
+<body>
+    <div id="title"></div>
+    <div id="brb"></div>
+</body>
+
+<script>
+    const titleReplicant = nodecg.Replicant('title');
+    titleReplicant.on('change', (newValue, oldValue) => {
+        title.innerText = newValue;
+    });
+
+    const brbReplicant = nodecg.Replicant('brb');
+    brbReplicant.on('change', (newValue, oldValue) => {
+        brb.innerText = newValue;
+    });
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="bundle.js"></script>
+    </head>
+
+    <style>
+        paper-button.danger {
+            background-color: #D50000
+        }
+
+        paper-button.warning {
+            background-color: #FFAB00
+        }
+
+        paper-button.primary {
+            background-color: #00BFA5
+        }
+    </style>
+<body>
+    <paper-input id="countdownInput" type="text" value="10:00" label="Time"></paper-input>
+    <paper-button id="startButton" class="primary">Start</paper-button>
+    <paper-button id="stopButton" class="danger">Stop</paper-button>
+</body>
+
+<script>
+    const countdownReplicant = nodecg.Replicant('countdown');
+
+    stopButton.onclick = () => {
+        countdownReplicant.value = null;
+    }
+    startButton.onclick = () => {
+        let split = countdownInput.value.split(":");
+        let offset = 0;
+        if (split.length == 3) {
+            offset += split[0] * 3600000;
+            offset += split[1] * 60000;
+            offset += split[2] * 1000;
+        } else if (split.length == 2) {
+            offset += split[0] * 60000;
+            offset += split[1] * 1000;
+        } else if (split.length == 1) {
+            offset += split[0] * 1000;
+        }
+        countdownReplicant.value = Date.now() + offset;
+    }
+</script>
+</html>

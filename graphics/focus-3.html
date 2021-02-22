@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/focus.css" rel="stylesheet">
+        <style>
+            div[data-index='1'] {
+                top: 8px;
+            }
+
+            div[data-index='2']  {
+                top: 386px;
+            }
+
+            #webcam {
+                bottom: 8px;
+                left: 8px;
+                width: 444px;
+                height: 333px;
+            }
+
+            .primary {
+                width: 1280px;
+                height: 720px;
+                top: 8px;
+                left: 8px;
+            }
+
+            .secondary {
+                width: 608px;
+                height: 342px;
+                right: 8px;
+            }
+
+            #title {
+                left: 475px;
+                width: 960px;
+                top: 790px;
+            }
+
+            #timer {
+                left: 820px;
+                top: 920px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="racer primary" data-index="0">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="1">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="2">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div id="webcam"></div>
+    <div id="title"></div>
+    <div id="timer"></div>
+    <script src="js/focus.js"></script>
+</body>
+
+</html>

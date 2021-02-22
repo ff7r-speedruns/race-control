@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="bundle.js"></script>
+
+        <style>
+            paper-button.primary {
+                background-color: #00BFA5
+            }
+        </style>
+    </head>
+<body>
+    <paper-input type="text" id="titleInput" label="Stream Title"></paper-input>
+    <paper-input type="text" id="brbInput" label="BRB Message"></paper-input>
+    <paper-input type="text" id="endingInput" label="Ending Message"></paper-input>
+    <paper-button id="submitButton" class="primary">Update</paper-buttonbutton>
+</body>
+
+<script>
+    const titleReplicant = nodecg.Replicant('title');
+    const brbReplicant = nodecg.Replicant('brb', {
+        defaultValue: 'Be Right Back'
+    });
+    const endingReplicant = nodecg.Replicant('ending', {
+        defaultValue: 'Thanks for Watching!'
+    });
+
+    titleReplicant.on('change', (newValue, oldValue) => {
+        titleInput.value = newValue;
+    });
+
+    brbReplicant.on('change', (newValue, oldValue) => {
+        brbInput.value = newValue;
+    });
+
+    endingReplicant.on('change', (newValue, oldValue) => {
+        endingInput.value = newValue;
+    });
+
+    submitButton.onclick = () => {
+        titleReplicant.value = titleInput.value;
+        brbReplicant.value = brbInput.value;
+        endingReplicant.value = endingInput.value;
+    }
+</script>
+</html>

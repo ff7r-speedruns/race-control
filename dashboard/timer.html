@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="bundle.js"></script>
+
+        <style>
+            paper-button.danger {
+                background-color: #D50000
+            }
+
+            paper-button.warning {
+                background-color: #FFAB00
+            }
+
+            paper-button.primary {
+                background-color: #00BFA5
+            }
+        </style>
+    </head>
+    <body>
+        <p id="timer"></p>
+        <paper-button id="timerButton" class="primary">Start</paper-button>
+        <paper-button id="resetButton" class="danger">Reset</paper-button>
+    </body>
+
+    <script>
+        const timerReplicant = nodecg.Replicant('timer', {
+            defaultValue: {
+                state: 'new',
+                start: null,
+                end: null
+            }
+        });
+
+        resetButton.onclick = () => {
+            timerReplicant.value = {
+                state: 'new',
+                start: null,
+                end: null
+            }
+            nodecg.sendMessage('timer.reset', timerReplicant.value);
+            timerButton.innerText = 'Start';
+        };
+
+        timerReplicant.on('change', (newValue, oldValue) => {
+            if (oldValue && newValue.state == oldValue.state) {
+                return;
+            }
+            switch (newValue.state) {
+                case 'new':
+                    timerButton.innerText = 'Start';
+                    timerButton.classList.add('primary');
+                    timerButton.classList.remove('warning');
+                    break;
+                case 'running':
+                    timerButton.innerText = 'Stop';
+                    timerButton.classList.add('warning');
+                    timerButton.classList.remove('primary');
+                    break;
+                case 'stopped':
+                    timerButton.innerText = 'Resume';
+                    timerButton.classList.add('primary');
+                    timerButton.classList.remove('warning');
+                    break;
+            }
+        });
+
+        nodecg.listenFor('timer.start', (data) => {
+            timerReplicant.value = {
+                'start': Date.now(),
+                'end': null,
+                'state': 'running'
+            }
+        });
+
+        nodecg.listenFor('timer.stop', (data) => {
+            timerReplicant.value = {
+                'start': timerReplicant.value.start,
+                'end': Date.now(),
+                'state': 'stopped'
+            }
+        });
+
+        nodecg.listenFor('timer.resumed', (data) => {
+            timerReplicant.value = {
+                'start': timerReplicant.value.start,
+                'end':null,
+                'state': 'running'
+            }
+        });
+
+        timerButton.onclick = () => {
+            switch (timerReplicant.value.state) {
+                case 'new':
+                    nodecg.sendMessage('timer.start', timerReplicant.value);
+                    break;
+                case 'running':
+                    nodecg.sendMessage('timer.stop', timerReplicant.value);
+                    break;
+                case 'stopped':
+                    nodecg.sendMessage('timer.resumed', timerReplicant.value);
+                    break;
+            }
+        }
+
+        NodeCG.waitForReplicants(timerReplicant).then(() => {
+            setInterval(() => {
+                if (timerReplicant.value.state == 'new') {
+                    timer.innerText = '00:00:00';
+
+                } else {
+                    let end = Date.now();
+                    if (timerReplicant.value.state == 'stopped') {
+                        end = timerReplicant.value.end;
+                    }
+                    let elapsed = end - timerReplicant.value.start;
+                    let diff = new Date(elapsed);
+                    timer.innerText = ("0" + diff.getUTCHours()).slice(-2) + ":" + ("0" + diff.getMinutes()).slice(-2) + ':' + ("0" + diff.getSeconds()).slice(-2); 
+                }
+            }, 100)
+        });
+    </script>
+</html>

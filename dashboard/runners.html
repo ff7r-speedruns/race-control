@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+    <script src="bundle.js"></script>
+    <style>
+        paper-button.danger {
+            background-color: #D50000
+        }
+
+        paper-button.warning {
+            background-color: #FFAB00
+        }
+
+        paper-button.primary {
+            background-color: #00BFA5
+        }
+
+        paper-button.success {
+            background-color: #00E676
+        }
+
+        paper-icon-button.muted {
+            color: #757575;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .th-name {
+            text-align: left;
+        }
+
+        .th-time {
+            width: 15%;
+        }
+
+        .th-timer {
+            width: 15%;
+        }
+
+        .th-timer {
+            width: 15%;
+        }
+
+        .th-audio {
+            width: 10%;
+        }
+
+        .th-focus {
+            width: 10%;
+        }
+
+        tr td:first-child {
+            text-align: left;
+        }
+
+        tr td {
+            text-align: center;
+        }
+    </style>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th class="th-name">Name</th>
+                <th class="th-time">Time</th>
+                <th class="th-timer">Timer</th>
+                <th class="th-timer">Audio</th>
+                <th class="th-focus">Focus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-index="0">
+                <td>
+                    <paper-input type="text" label="Runner 1" data-type="name"></paper-input>
+                </td>
+                <td data-type="timer"></td>
+                <td>
+                    <paper-button class="warning" data-type="timerButton">
+                        Stop
+                    </paper-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="audio" class="muted" icon="av:volume-off"></paper-icon-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="focus" class="muted" icon="av:videocam-off"></paper-icon-button>
+                </td>
+            </tr>
+            <tr data-index="1">
+                <td>
+                    <paper-input type="text" label="Runner 1" data-type="name"></paper-input>
+                </td>
+                <td data-type="timer"></td>
+                <td>
+                    <paper-button class="warning" data-type="timerButton">
+                        Stop
+                    </paper-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="audio" class="muted" icon="av:volume-off"></paper-icon-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="focus" class="muted" icon="av:videocam-off"></paper-icon-button>
+                </td>
+            </tr>
+            <tr data-index="2">
+                <td>
+                    <paper-input type="text" label="Runner 1" data-type="name"></paper-input>
+                </td>
+                <td data-type="timer"></td>
+                <td>
+                    <paper-button class="warning" data-type="timerButton">
+                        Stop
+                    </paper-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="audio" class="muted" icon="av:volume-off"></paper-icon-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="focus" class="muted" icon="av:videocam-off"></paper-icon-button>
+                </td>
+            </tr>
+            <tr data-index="3">
+                <td>
+                    <paper-input type="text" label="Runner 1" data-type="name"></paper-input>
+                </td>
+                <td data-type="timer"></td>
+                <td>
+                    <paper-button class="warning" data-type="timerButton">
+                        Stop
+                    </paper-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="audio" class="muted" icon="av:volume-off"></paper-icon-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="focus" class="muted" icon="av:videocam-off"></paper-icon-button>
+                </td>
+            </tr>
+            <tr data-index="4">
+                <td>
+                    <paper-input type="text" label="Runner 1" data-type="name"></paper-input>
+                </td>
+                <td data-type="timer"></td>
+                <td>
+                    <paper-button class="warning" data-type="timerButton">
+                        Stop
+                    </paper-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="audio" class="muted" icon="av:volume-off"></paper-icon-button>
+                </td>
+                <td>
+                    <paper-icon-button data-type="focus" class="muted" icon="av:videocam-off"></paper-icon-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <paper-button id="submitButton" class="primary">Update Names</paper-button>
+    </p>
+</body>
+
+<script>
+    const max = document.querySelectorAll('tr[data-index]').length;
+
+    let runners = [];
+    for (i = 0; i < max; i++) {
+        runners.push({
+            'name': '',
+            'start': null,
+            'end': null,
+            'audio': false,
+            'focus': false
+        });
+    }
+    const runnersReplicant = nodecg.Replicant('runners', {
+        defaultValue: runners
+    });
+
+    runnersReplicant.on('change', (newValue, oldValue) => {
+        runners = newValue;
+        updateRunners();
+    });
+
+    function updateRunners() {
+        document.querySelectorAll('tr[data-index]').forEach((element) => {
+            const index = element.getAttribute('data-index');
+            let runner = {
+                'name': '',
+                'start': null,
+                'end': null,
+                'audio': false,
+                'focus': false
+            }
+            if (runners[index]) {
+                runner = runners[index];
+            }
+
+            const name = element.querySelector('[data-type=name]');
+            const timer = element.querySelector('[data-type=timer]');
+            const timerButton = element.querySelector('[data-type=timerButton]');
+            const audio = element.querySelector('[data-type=audio]');
+            const focus = element.querySelector('[data-type=focus]');
+
+            name.value = runner.name;
+
+            if (runner.audio) {
+                audio.classList.remove('muted');
+                audio.setAttribute('icon', 'av:volume-up');
+            } else {
+                audio.classList.add('muted');
+                audio.setAttribute('icon', 'av:volume-off');
+            }
+
+            if (runner.focus) {
+                focus.classList.remove('muted');
+                focus.setAttribute('icon', 'av:videocam');
+            } else {
+                focus.classList.add('muted');
+                focus.setAttribute('icon', 'av:videocam-off');
+            }
+
+            updateTimerState(timerButton, index);
+        });
+    }
+
+    submitButton.onclick = () => {
+        document.querySelectorAll('tr[data-index]').forEach((element) => {
+            const index = element.getAttribute('data-index');
+            if (!runners[index]) {
+                runners[index] = {
+                    'name': '',
+                    'start': null,
+                    'end': null,
+                    'audio': false,
+                    'focus': false
+                };
+            }
+            runners[index].name = element.querySelector('[data-type=name]').value;
+        });
+        runnersReplicant.value = runners;
+    };
+
+    function updateTimerState(button, index)
+    {
+        if (!runners[index]) {
+            return;
+        }
+
+        if (!runners[index].start) {
+            button.innerText = 'Stop';
+            button.setAttribute('disabled', true);
+            button.classList.add('muted');
+            button.classList.remove('warning');
+            return;
+        }
+        
+        button.classList.remove('muted');
+        button.classList.add('warning');
+        button.removeAttribute('disabled');
+
+        if (runners[index].end) {
+            button.innerText = 'Resume';
+        } else {
+            button.innerText = 'Stop';
+        }
+    }
+    
+    document.querySelectorAll('[data-type=timerButton').forEach((element) => {
+        const parent = element.closest("tr[data-index]");
+        const index = parent.getAttribute('data-index');
+        element.onclick = (evt) => {
+            if (runners[index].start) {
+                if (runners[index].end) {
+                    runners[index].end = null;
+                } else {
+                    runners[index].end = Date.now();
+                }
+            }
+            runnersReplicant.value = runners;
+        }
+    });
+    
+    document.querySelectorAll('[data-type=audio]').forEach((element) => {
+        const parent = element.closest("tr[data-index]");
+        const index = parseInt(parent.getAttribute('data-index'));
+        element.onclick = (evt) => {
+            runners.forEach((runner, i) => {
+                if (index == i) {
+                    runners[i].audio = true;
+                } else {
+                    runners[i].audio = false;
+                }
+            });
+
+            runnersReplicant.value = runners;
+            nodecg.sendMessage('audio.switch', index + 1);
+        }
+    });
+    
+    document.querySelectorAll('[data-type=focus]').forEach((element) => {
+        const parent = element.closest("tr[data-index]");
+        const index = parseInt(parent.getAttribute('data-index'));
+        element.onclick = (evt) => {
+            runners.forEach((runner, i) => {
+                if (index == i) {
+                    if (runner.focus) {
+                        runner.focus = false;
+                        nodecg.sendMessage('video.switch', 0);
+                    } else {
+                        runner.focus = true;
+                        runner.audio = true;
+                        nodecg.sendMessage('video.switch', index + 1);
+                        nodecg.sendMessage('audio.switch', index + 1);
+                    }
+                } else {
+                    runners[i].focus = false;
+                    runners[i].audio = false;
+                }
+            });
+
+            runnersReplicant.value = runners;
+        }
+    });
+
+    const timerReplicant = nodecg.Replicant('timer');
+    NodeCG.waitForReplicants(runnersReplicant, timerReplicant).then(() => {
+        timerReplicant.on('change', (newValue, oldValue) => {
+            runners.forEach((runner, i) => {
+                runners[i].start = newValue.start;
+                if (newValue.start == null) {
+                    runners[i].end = null;
+                }
+            });
+            runnersReplicant.value = runners;
+        });
+
+        setInterval(() => {
+            document.querySelectorAll('tr[data-index]').forEach((element) => {
+                const index = element.getAttribute('data-index');
+                const timer = element.querySelector('[data-type=timer]');
+                if (runners[index] && runners[index].start) {
+                    const end = runners[index].end || Date.now();
+                    const diff = new Date(end - runners[index].start);
+                    timer.innerText = ("0" + diff.getUTCHours()).slice(-2) + ":" + ("0" + diff.getMinutes()).slice(-2) + ':' + ("0" + diff.getSeconds()).slice(-2); 
+                } else {
+                    timer.innerText = '00:00:00';
+                }
+            });
+        }, 100)
+    });
+</script>
+</html>

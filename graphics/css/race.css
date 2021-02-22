@@ -1,0 +1,61 @@
+body,html {
+    font-weight: bold;
+    font-family: Montserrat;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.32);
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    padding: 0;
+}
+
+.racer {
+    position: absolute;
+    border: 1px solid #30aebd;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+}
+
+.nickname {
+    font-size: 14pt;
+    color: #ffffff;
+    position: absolute;
+    padding: 2px 50px 2px 8px;
+    left: 0;
+    bottom: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0.6866947462578781) 0%, rgba(0,0,0,0.4822129535407913) 64%, rgba(0,0,0,0) 100%); 
+}
+
+.nickname .audio .material-icons {
+    vertical-align: text-bottom;
+}
+
+.racer .time {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 48pt;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px;
+    text-shadow: none;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.61);
+}
+
+#title {
+    color: #ffffff;
+    position: absolute;
+    font-size: 28pt;
+    text-align: center;
+}
+
+#timer {
+    position: absolute;
+    color: #ffffff;
+    font-size: 48pt;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/focus.css" rel="stylesheet">
+        <style>
+            div[data-index='1'] {
+                top: 5px;
+            }
+
+            div[data-index='2']  {
+                top: 365px;
+            }
+
+            div[data-index='3']  {
+                top: 722px;
+                left: 8px;
+            }
+
+            div[data-index='4']  {
+                top: 722px;
+                left: 648px;
+            }
+
+            .primary {
+                width: 1264px;
+                height: 711px;
+                top: 5px;
+                left: 8px;
+            }
+
+            .secondary {
+                width: 624px;
+                height: 351px;
+                right: 8px;
+            }
+
+            #title {
+                left: 1280px;
+                width: 624px;
+                top: 790px;
+            }
+
+            #timer {
+                left: 1480px;
+                top: 920px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="racer primary" data-index="0">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="1">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="2">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="3">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div class="racer secondary" data-index="4">
+        <div class="time" data-type="time"></div>
+        <div class="nickname">
+            <span data-type="name"></span>
+        </div>
+    </div>
+    <div id="title"></div>
+    <div id="timer"></div>
+    <script src="js/focus.js"></script>
+</body>
+
+</html>

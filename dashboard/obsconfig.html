@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+    <script src="bundle.js"></script>
+    <style>
+
+        paper-button.primary {
+            background-color: #00BFA5
+        }
+
+        paper-icon-button.muted {
+            color: #757575;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .th-time {
+            width: 15%;
+        }
+
+        .th-timer {
+            width: 15%;
+        }
+
+        .th-timer {
+            width: 15%;
+        }
+
+        .th-audio {
+            width: 10%;
+        }
+
+        .th-focus {
+            width: 10%;
+        }
+
+        tr td:first-child {
+            text-align: left;
+        }
+
+        tr td {
+            text-align: center;
+        }
+    </style>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th class="th-runner"></th>
+                <th class="th-audio">Audio Source</th>
+                <th class="th-scene">Scene</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-index="0">
+                <td>
+                    Multiview
+                </td>
+                <td>-</td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+            <tr data-index="1">
+                <td data-type="name">
+                </td>
+                <td>
+                    <select data-type="source"></select>
+                </td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+            <tr data-index="2">
+                <td data-type="name">
+                </td>
+                <td>
+                    <select data-type="source" ></select>
+                </td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+            <tr data-index="3">
+                <td data-type="name">
+                </td>
+                <td>
+                    <select data-type="source"></select>
+                </td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+            <tr data-index="4">
+                <td data-type="name">
+                </td>
+                <td>
+                    <select data-type="source"></select>
+                </td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+            <tr data-index="5">
+                <td data-type="name">
+                </td>
+                <td>
+                    <select data-type="source"></select>
+                </td>
+                <td>
+                    <select data-type="scene"></select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <paper-button id="submitButton" class="primary">Save</paper-button>
+    </p>
+</body>
+
+<script>
+    obsConfigReplicant = nodecg.Replicant('obsconfig', {
+        defaultValue: {
+            audio: [],
+            video: []
+        },
+    });
+
+    let obsConfig = {
+        audio: [],
+        video: []
+    };
+    let scenes = {};
+    let sources = {};
+    
+    obsConfigReplicant.on('change', (newValue, oldValue) => {
+        obsConfig = newValue;
+        updateConfig();
+    });
+
+    nodecg.Replicant('obs.scenes').on('change', (newValue, oldValue) => {
+        scenes = newValue;
+        updateScenes();
+    });
+
+    nodecg.Replicant('obs.sources').on('change', (newValue, oldValue) => {
+        sources = newValue;
+        updateSources();
+    });
+
+    nodecg.Replicant('runners').on('change', (newValue, oldValue) => {
+        let elements = document.querySelectorAll("td[data-type=name]");
+        elements.forEach((element) => {
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            if (newValue[index - 1]) {
+                element.innerText = newValue[index - 1].name;
+            }
+        });
+    });
+
+
+    function updateConfig()
+    {
+        let sceneElements = document.querySelectorAll("select[data-type=scene]");
+        sceneElements.forEach((element) => {
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            if (!obsConfig.video[index]) {
+                element.selectedIndex = -1;
+            } else {
+                for (let i = 0; i < element.options.length; i++) {
+                    if (element.options[i].value == obsConfig.video[index]) {
+                        element.selectedIndex = i;
+                    }
+                }
+            }
+        });
+
+        let sourceElements = document.querySelectorAll("select[data-type=source]");
+        sourceElements.forEach((element) => {
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            if (!obsConfig.audio[index]) {
+                element.selectedIndex = -1;
+            } else {
+                for (let i = 0; i < element.options.length; i++) {
+                    if (element.options[i].value == obsConfig.audio[index]) {
+                        element.selectedIndex = i;
+                    }
+                }
+            }
+        });
+    }
+
+    function updateScenes()
+    {
+       document.querySelectorAll("select[data-type=scene]").forEach((element) => {
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            let selectedValue = obsConfig.video[index];
+            for (let i = element.options.length - 1; i >= 0; i--) {
+                element.remove(i);
+            }
+            scenes.forEach((scene) => {
+                let item = document.createElement('option');
+                item.value = scene.name;
+                item.text = scene.name;
+                element.add(item);
+                if (item.value == selectedValue) {
+                    element.selectedIndex = item.index;
+                }
+            });
+        });
+    };
+
+    function updateSources()
+    {
+        document.querySelectorAll("select[data-type=source]").forEach((element) => {
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            let selectedValue = obsConfig.audio[index];
+            for (let i = element.options.length - 1; i >= 0; i--) {
+                element.remove(i);
+            }
+            sources.forEach((source) => {
+                let item = document.createElement('option');
+                item.value = source.name;
+                item.text = source.name;
+                element.add(item);
+                if (item.value == selectedValue) {
+                    element.selectedIndex = item.index;
+                }
+            });
+        });
+    };
+
+    document.querySelectorAll("select[data-type=scene]").forEach((element) => {
+        element.onchange = (evt) => {
+            let scene = element.options[element.selectedIndex].value;
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            let values = obsConfig.video;
+            for (let i = 0; i < index; i++) {
+                if (!values[i]) {
+                    values[i] = null;
+                }
+            }
+            values[index] = scene;
+            obsConfigReplicant.value.video = values;
+        }
+    });
+
+    document.querySelectorAll("select[data-type=source]").forEach((element) => {
+        element.onchange = (evt) => {
+            let scene = element.options[element.selectedIndex].value;
+            let index = element.closest("tr[data-index]").getAttribute('data-index');
+            let values = obsConfig.audio;
+            for (let i = 0; i < index; i++) {
+                if (!values[i]) {
+                    values[i] = null;
+                }
+            }
+            values[index] = scene;
+            obsConfigReplicant.value.audio = values;
+        }
+    });
+</script>
+</html>
